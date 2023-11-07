@@ -1,0 +1,21 @@
+<table>
+    <thead>
+        <tr>
+            <th>Completed</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let task of tasks$ | async">
+            <td><input type="checkbox" /></td>
+            <td>{{task.title}}</td>
+            <td>{{task.description}}</td>
+            <td>
+                <button type="button">Edit</button>
+                <button type="button">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

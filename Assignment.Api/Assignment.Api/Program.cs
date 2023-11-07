@@ -1,11 +1,33 @@
+using Assignment.Api.Core.Services;
+using Assignment.Api.Persistence;
+using Assignment.Api.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
 // Add services to the container.
+builder.Services.AddScoped<IAppDbContext, AppDbContext>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddScoped<ITasksService, TasksService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddPolicy(
+          "Any",
+          cors =>
+          {
+              cors.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+          });
+    });
 
 var app = builder.Build();
 
@@ -15,6 +37,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("Any");
 
 app.UseHttpsRedirection();
 

@@ -1,0 +1,8 @@
+<section>
+    <header>
+        Completed Tasks
+    </header>
+    <ol>
+        <li *ngFor="let task of tasks$ | async">{{task.title}}</li>
+    </ol>
+</section>

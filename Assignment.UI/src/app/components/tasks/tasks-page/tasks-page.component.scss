@@ -1,0 +1,25 @@
+.tasks-page {
+    padding: 30px 50px;
+
+    .page-header {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .page-content {
+        display: flex;
+
+        .tasks-section {
+            width: 85%;
+
+            .new-task-form {
+                display: block;
+                margin-bottom: 50px;
+            }
+        }
+
+        .tasks-aside {
+            width: 15%;
+        }
+    }
+}
